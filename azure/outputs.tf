@@ -21,7 +21,7 @@ locals {
 
     harbor_api_application_security_group_name = azurerm_application_security_group.harbor-api.name
     harbor_api_security_group_name             = azurerm_network_security_group.harbor-api.name
-    harbor_dns                                 = "${azurerm_dns_a_record.harbor.name}.${azurerm_dns_a_record.harbor.zone_name}"
+    harbor_dns                                 = "${azurerm_private_dns_a_record.harbor.name}.${azurerm_private_dns_a_record.harbor.zone_name}"
 
     oms_workspace_id  = azurerm_log_analytics_workspace.log_workspace.workspace_id
     oms_workspace_key = azurerm_log_analytics_workspace.log_workspace.primary_shared_key
@@ -32,7 +32,7 @@ locals {
     ops_manager_public_key           = tls_private_key.ops_manager.public_key_openssh
     ops_manager_public_ip            = azurerm_public_ip.ops-manager.ip_address
     ops_manager_container_name       = azurerm_storage_container.ops-manager.name
-    ops_manager_dns                  = "${azurerm_dns_a_record.ops-manager.name}.${azurerm_dns_a_record.ops-manager.zone_name}"
+    ops_manager_dns                  = "${azurerm_private_dns_a_record.ops-manager.name}.${azurerm_private_dns_a_record.ops-manager.zone_name}"
     ops_manager_storage_account_name = azurerm_storage_account.ops-manager.name
 
     iaas_configuration_environment_azurecloud = var.iaas_configuration_environment_azurecloud
@@ -56,15 +56,15 @@ locals {
     mysql_lb_name = azurerm_lb.mysql.name
     tcp_lb_name   = azurerm_lb.tcp.name
 
-    apps_dns_domain = "${replace(azurerm_dns_a_record.apps.name, "*.", "")}.${azurerm_dns_a_record.apps.zone_name}"
-    sys_dns_domain  = "${replace(azurerm_dns_a_record.sys.name, "*.", "")}.${azurerm_dns_a_record.sys.zone_name}"
-    ssh_dns         = "${azurerm_dns_a_record.ssh.name}.${azurerm_dns_a_record.ssh.zone_name}"
-    tcp_dns         = "${azurerm_dns_a_record.tcp.name}.${azurerm_dns_a_record.tcp.zone_name}"
-    mysql_dns       = "${azurerm_dns_a_record.mysql.name}.${azurerm_dns_a_record.mysql.zone_name}"
+    apps_dns_domain = "${replace(azurerm_private_dns_a_record.apps.name, "*.", "")}.${azurerm_private_dns_a_record.apps.zone_name}"
+    sys_dns_domain  = "${replace(azurerm_private_dns_a_record.sys.name, "*.", "")}.${azurerm_private_dns_a_record.sys.zone_name}"
+    ssh_dns         = "${azurerm_private_dns_a_record.ssh.name}.${azurerm_private_dns_a_record.ssh.zone_name}"
+    tcp_dns         = "${azurerm_private_dns_a_record.tcp.name}.${azurerm_private_dns_a_record.tcp.zone_name}"
+    mysql_dns       = "${azurerm_private_dns_a_record.mysql.name}.${azurerm_private_dns_a_record.mysql.zone_name}"
 
     pks_as_name                                = azurerm_availability_set.pks_as.name
     pks_lb_name                                = azurerm_lb.pks.name
-    pks_dns                                    = "${azurerm_dns_a_record.pks.name}.${azurerm_dns_a_record.pks.zone_name}"
+    pks_dns                                    = "${azurerm_private_dns_a_record.pks.name}.${azurerm_private_dns_a_record.pks.zone_name}"
     pks_subnet_name                            = azurerm_subnet.pks.name
     pks_subnet_id                              = azurerm_subnet.pks.id
     pks_subnet_cidr                            = azurerm_subnet.pks.address_prefix

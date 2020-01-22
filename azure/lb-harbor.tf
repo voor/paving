@@ -81,10 +81,10 @@ resource "azurerm_network_security_group" "harbor-api" {
   }
 }
 
-resource "azurerm_dns_a_record" "harbor" {
+resource "azurerm_private_dns_a_record" "harbor" {
   name                = "harbor"
-  zone_name           = data.azurerm_dns_zone.hosted.name
-  resource_group_name = data.azurerm_dns_zone.hosted.resource_group_name
+  zone_name           = azurerm_private_dns_zone.private_dns.name
+  resource_group_name = azurerm_private_dns_zone.private_dns.resource_group_name
   ttl                 = "60"
   records             = [azurerm_public_ip.harbor-lb.ip_address]
 
