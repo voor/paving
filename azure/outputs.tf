@@ -14,7 +14,12 @@ locals {
 
     bosh_storage_account_name = azurerm_storage_account.bosh.name
 
+    harbor_api_application_security_group_name = azurerm_application_security_group.harbor-api.name
+    harbor_api_security_group_name             = azurerm_network_security_group.harbor-api.name
+    harbor_dns                                 = "${azurerm_dns_a_record.harbor.name}.${azurerm_dns_a_record.harbor.zone_name}"
 
+    oms_workspace_id  = azurerm_log_analytics_workspace.log_workspace.workspace_id
+    oms_workspace_key = azurerm_log_analytics_workspace.log_workspace.primary_shared_key
 
     ops_manager_security_group_name  = azurerm_network_security_group.ops-manager.name
     ops_manager_private_key          = tls_private_key.ops_manager.private_key_pem
@@ -69,6 +74,7 @@ locals {
     services_subnet_cidr    = azurerm_subnet.services.address_prefix
     services_subnet_gateway = cidrhost(azurerm_subnet.services.address_prefix, 1)
     services_subnet_range   = cidrhost(azurerm_subnet.services.address_prefix, 10)
+
   }
 }
 
