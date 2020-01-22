@@ -19,6 +19,13 @@ locals {
 
     bosh_storage_account_name = azurerm_storage_account.bosh.name
 
+    harbor_api_application_security_group_name = azurerm_application_security_group.harbor-api.name
+    harbor_api_security_group_name             = azurerm_network_security_group.harbor-api.name
+    harbor_dns                                 = "${azurerm_dns_a_record.harbor.name}.${azurerm_dns_a_record.harbor.zone_name}"
+
+    oms_workspace_id  = azurerm_log_analytics_workspace.log_workspace.workspace_id
+    oms_workspace_key = azurerm_log_analytics_workspace.log_workspace.primary_shared_key
+
     ops_manager_security_group_name  = azurerm_network_security_group.ops-manager.name
     ops_manager_private_key          = tls_private_key.ops_manager.private_key_pem
     ops_manager_private_ip           = cidrhost(azurerm_subnet.management.address_prefix, 5)
@@ -68,8 +75,8 @@ locals {
     pks_internal_network_security_group_name   = azurerm_network_security_group.pks-internal.name
     pks_master_application_security_group_name = azurerm_application_security_group.pks-master.name
     pks_master_network_security_group_name     = azurerm_network_security_group.pks-master.name
-    pks_master_managed_identity                = azurerm_user_assigned_identity.pks-master.name
-    pks_worker_managed_identity                = azurerm_user_assigned_identity.pks-worker.name
+    # pks_master_managed_identity                = azurerm_user_assigned_identity.pks-master.name
+    # pks_worker_managed_identity                = azurerm_user_assigned_identity.pks-worker.name
 
     services_subnet_name    = azurerm_subnet.services.name
     services_subnet_id      = azurerm_subnet.services.id
